@@ -1,4 +1,19 @@
 services:
+  maily:
+    build:
+      context: ..
+      dockerfile: ./docker/Dockerfile
+    container_name: mail
+    restart: unless-stopped
+    depends_on:
+      - rabbitmq
+    environment:
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_PORT: 5672
+      RABBITMQ_USER: user
+      RABBITMQ_PASSWORD: password
+      SMTP2GO_KEY: api-4FD21FE70E9D437B90B08C7D2D887250
+
   rabbitmq:
     image: rabbitmq:4.2-management-alpine
     container_name: rabbitmq
@@ -9,11 +24,9 @@ services:
     environment:
       RABBITMQ_DEFAULT_USER: user
       RABBITMQ_DEFAULT_PASS: password
-      #RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS: -rabbitmq_management load_definitions "/etc/rabbitmq/definitions.json"
     volumes:
       - rabbitmq-lib:/var/lib/rabbitmq/
       - rabbitmq-log:/var/log/rabbitmq
-      - ./definitions.json:/etc/rabbitmq/definitions.json
 
 volumes:
   rabbitmq-lib:

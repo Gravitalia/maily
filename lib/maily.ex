@@ -17,6 +17,9 @@ defmodule Maily do
         module:
           {BroadwayRabbitMQ.Producer,
            queue: cfg[:queue],
+           declare: [
+            durable: true,
+           ],
            connection: [
              host: cfg[:host],
              port: cfg[:port],

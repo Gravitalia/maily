@@ -18,6 +18,8 @@ defmodule Maily do
           {BroadwayRabbitMQ.Producer,
            queue: cfg[:queue],
            connection: [
+             host: cfg[:host],
+             port: cfg[:port],
              username: cfg[:username],
              password: cfg[:password]
            ],

@@ -1,0 +1,9 @@
+Maily
+=====
+
+Event-driven email sender with back pressure.
+
+Supported providers:
+    * SMTP2GO (HTTP API).
+
+Under 3-Clause BSD license.

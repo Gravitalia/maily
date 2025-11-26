@@ -12,7 +12,7 @@ services:
       RABBITMQ_PORT: 5672
       RABBITMQ_USER: user
       RABBITMQ_PASSWORD: password
-      SMTP2GO_KEY: api-4FD21FE70E9D437B90B08C7D2D887250
+      SMTP2GO_KEY: api-XXX
 
   rabbitmq:
     image: rabbitmq:4.2-management-alpine

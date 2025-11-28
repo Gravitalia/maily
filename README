@@ -1,9 +1,14 @@
 Maily
 =====
 
-Event-driven email sender with back pressure.
+Event-driven email sender with back pressure and custom templates.
 
 Supported providers:
     * SMTP2GO (HTTP API).
+
+To use your own templates, add a volume for: ./templates
+Supported templates:
+    * Welcome (welcome.json)
+    * Alert on credentials update (data_update.json)
 
 Under 3-Clause BSD license.

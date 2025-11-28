@@ -22,7 +22,9 @@ defmodule Maily.MixProject do
     [
       {:broadway_rabbitmq, "~> 0.8"},
       {:jason, "~> 1.4"},
-      {:httpoison, "~> 2.3"}
+      {:httpoison, "~> 2.3"},
+      {:ex_cldr, "~> 2.44"},
+      {:ex_cldr_dates_times, "~> 2.25"},
     ]
   end
 end

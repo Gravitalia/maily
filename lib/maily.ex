@@ -52,14 +52,24 @@ defmodule Maily do
           :ok ->
             Logger.debug("received cloudevent", cloudevent: cloudevent)
 
+            {:ok, datetime, 0} = DateTime.from_iso8601(cloudevent["time"])
+            {:ok, utc_datetime} = DateTime.shift_zone(datetime, "Etc/UTC")
+
             cloudevent_data = cloudevent["data"]
+            locale = cloudevent_data["locale"] || "en"
+
+            {:ok, date} = Cldr.DateTime.to_string(utc_datetime, locale: locale, format: :long)
 
             case Maily.Template.read_template(
-                   cloudevent_data["locale"] || "en",
+                   locale,
                    cloudevent_data["template"]
                  ) do
               {:ok, template} ->
-                case Maily.Providers.Smtp2Go.send(cloudevent_data["to"], template) do
+                html_body = template[:html_body]
+                updated_html_body = html_body |> String.replace("[[date]]", date)|> String.replace("[[username]]", cloudevent_data["username"] || "")
+                updated_template = %{template | :html_body => updated_html_body}
+
+                case Maily.Providers.Smtp2Go.send(cloudevent_data["to"], updated_template) do
                   :ok ->
                     Logger.debug("email sent")
                     message |> Message.put_data(cloudevent)
